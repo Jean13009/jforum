@@ -19,8 +19,8 @@ class SqlService
         $prep = $this->db->prepare($sql);
         $prep->bindValue(1, $user);
         $prep->bindValue(2, $color);
-        $prep->execute();
-        return $prep = $prep->fetchAll();
+        $result = $prep->execute();
+        return $result->fetchAllAssociative();
     }
 
     public function flagsListByCategory($user, $category, $color = null)
@@ -32,8 +32,8 @@ class SqlService
             $prep->bindValue(1, $user);
             $prep->bindValue(2, $color);
             $prep->bindValue(3, $category);
-            $prep->execute();
-            return $prep = $prep->fetchAll();
+            $result = $prep->execute();
+            return $result->fetchAllAssociative();
         }
         else
         {
@@ -41,8 +41,8 @@ class SqlService
             $prep = $this->db->prepare($sql);
             $prep->bindValue(1, $user);
             $prep->bindValue(2, $category);
-            $prep->execute();
-            return $prep = $prep->fetchAll();
+            $result = $prep->execute();
+            return $result->fetchAllAssociative();
         }
     }
 }
