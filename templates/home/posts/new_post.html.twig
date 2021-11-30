@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="row">
+		<div class="col-md-12" style="padding-top: 1%">
+			<h3 class="text-center">{% if form.content.vars.value is not empty %}Editer{% elseif topic.titre is defined %}Répondre{% else %}Nouveau Sujet{% endif %}</h3>
+			{{ form_start(form) }}
+			<table class="table table-bordered response">
+				<thead>
+					<tr>
+						<th style="width: 10%" class="text-center">Sujet</th>
+						<td class="response" style="width: 90%">{% if form.topic.titre is defined%}{{ form_widget(form.topic.titre) }}{% else %}{{ topic.titre }}{% endif %}</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th class="text-center response" style="height:300px">Votre réponse
+							<br>
+							<br>
+							<br>
+							<p style="font-size: 12px">Choix de smiley</p>
+							<div>
+								<img style="cursor:pointer" onclick="BBcode(':pfff:');" title=":pfff:" alt=":pfff:" src="/build/images/icones/pfff.gif">
+								<img style="cursor:pointer" onclick="BBcode(':):');" title=":):" alt=":):" src="/build/images/icones/smile.gif">
+								<img style="cursor:pointer" onclick="BBcode(':o:');" title=":o:" alt=":o:" src="/build/images/icones/redface.gif">
+								<img style="cursor:pointer" onclick="BBcode(':fou:');" title=":fou:" alt=":fou:" src="/build/images/icones/fou.gif">
+								<img style="cursor:pointer" onclick="BBcode(':love:');" title=":love:" alt=":love:" src="/build/images/icones/love.gif">
+								<img style="cursor:pointer" onclick="BBcode(':pt1cable:');" title=":pt1cable:" alt=":pt1cable:" src="/build/images/icones/pt1cable.gif">
+							</div>
+							<div>
+								<img style="cursor:pointer" onclick="BBcode(':ange:');" title=":ange:" alt=":ange:" src="/build/images/icones/ange.gif">
+								<img style="cursor:pointer" onclick="BBcode(':(:');" title=":(:" alt=":(:" src="/build/images/icones/frown.gif">
+								<img style="cursor:pointer" onclick="BBcode(':??:');" title=":??:" alt=":??:" src="/build/images/icones/confused.gif">
+								<img style="cursor:pointer" onclick="BBcode(':jap:');" title=":jap:" alt=":jap:" src="/build/images/icones/jap.gif">
+								<img style="cursor:pointer" onclick="BBcode(':heink:');" title=":heink:" alt=":heink:" src="/build/images/icones/heink.gif">
+								<img style="cursor:pointer" onclick="BBcode(':sleep:');" title=":sleep:" alt=":sleep:" src="/build/images/icones/sleep.gif">
+							</div>
+							<div>
+								<img style="cursor:pointer" onclick="BBcode(':non:');" title=":non:" alt=":non:" src="/build/images/icones/non.gif">
+								<img style="cursor:pointer" onclick="BBcode(':D:');" title=":D:" alt=":D:" src="/build/images/icones/biggrin.gif">
+								<img style="cursor:pointer" onclick="BBcode(':p:');" title=":p:" alt=":p:" src="/build/images/icones/tongue.gif">
+								<img style="cursor:pointer" onclick="BBcode(':lol:');" title=":lol:" alt=":lol:" src="/build/images/icones/lol.gif">
+								<img style="cursor:pointer" onclick="BBcode(':cry:');" title=":cry:" alt=":cry:" src="/build/images/icones/cry.gif">
+								<img style="cursor:pointer" onclick="BBcode(':sweat:');" title=":sweat:" alt=":sweat:" src="/build/images/icones/sweat.gif">
+							</div>
+							<div>
+								<img style="cursor:pointer" onclick="BBcode(':bounce:');" title=":bounce:" alt=":bounce:" src="/build/images/icones/bounce.gif">
+								<img style="cursor:pointer" onclick="BBcode(':;):');" title=":;):" alt=":;):" src="/build/images/icones/wink.gif">
+								<img style="cursor:pointer" onclick="BBcode(':na:');" title=":na:" alt=":na:" src="/build/images/icones/na.gif">
+								<img style="cursor:pointer" onclick="BBcode(':wahoo:');" title=":wahoo:" alt=":wahoo:" src="/build/images/icones/wahoo.gif">
+								<img style="cursor:pointer" onclick="BBcode(':whistle:');" title=":whistle:" alt=":whistle:" src="/build/images/icones/whistle.gif">
+								<img style="cursor:pointer" onclick="BBcode(':hello:');" title=":hello:" alt=":hello:" src="/build/images/icones/hello.gif">
+							</div>
+							<div>
+								<img style="cursor:pointer" onclick="BBcode(':ouch:');" title=":ouch:" alt=":ouch:" src="/build/images/icones/ouch.gif">
+								<img style="cursor:pointer" onclick="BBcode(':sarcastic:');" title=":sarcastic;" alt=":sarcastic:" src="/build/images/icones/sarcastic.gif">
+								<img style="cursor:pointer" onclick="BBcode(':kaola:');" title=":kaola:" alt=":kaola:" src="/build/images/icones/kaola.gif">
+								<img style="cursor:pointer" onclick="BBcode(':sol:');" title=":sol:" alt=":sol:" src="/build/images/icones/sol.gif">
+							</div>
+						</th>
+						<td>
+						<div>
+						<img style="cursor:pointer" class="text_bold" onclick="BBcode('[b]','[/b]');" title="Mettre en gras le texte. Syntaxe : [b]texte[/b]" alt="[b]" src="/build/images/icones/bold.gif" width="27" height="28"><img style="cursor:pointer" class="text_ita" onclick="BBcode('[i]','[/i]');" title="Mettre en italique le texte. Syntaxe : [i]texte[/i]" alt="[i]" src="/build/images/icones/italic.gif" width="25" height="28"><img style="cursor:pointer" class="text_under" onclick="BBcode('[u]','[/u]');" title="Souligner le texte. Syntaxe : [u]texte[/u]" alt="[u]" src="/build/images/icones/underline.gif" width="26" height="28"><img style="cursor:pointer" class="text_strike" onclick="BBcode('[strike]','[/strike]');" title="Barrer le texte. Syntaxe : [strike]texte[/strike]" alt="[strike]" src="/build/images/icones/strike.gif" width="26" height="28"><img style="cursor:pointer" class="text_url" onclick="BBcode('[url]','[/url]');" title="Insérer une URL. Syntaxe : [url]texte[/url]" alt="[url]" src="/build/images/icones/url.gif" width="26" height="28"><img style="cursor:pointer" class="image" onclick="BBcode('[img]','[/img]');" title="Insérer une image. Syntaxe : [img]http://www.exemple.com/exemple.jpg[/img]" alt="[img]" src="/build/images/icones/image.gif" width="26" height="28">
+						</div>
+						<br>
+							{{ form_widget(form.content) }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

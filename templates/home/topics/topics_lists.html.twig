@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="row">
+		<div class="col-md-12" style="padding-top: 1%">
+			<div>
+				<img src="/build/images/icones/nomsg.gif"><a style="margin-top: 5%;font-size: 12px;" href="{{ path('home') }}">
+					FORUM
+				</a>
+				<br>
+				&nbsp |- <img src="/build/images/icones/nomsg.gif"> {{ category.slug }}
+			</div>
+			<br>
+			<a href="{{ path('new_topic', { 'slug': category.slug }) }}">
+				<button type="button" class="btn btn-primary btn-lg">Nouveau sujet</button>
+			</a>
+			{{ pagination.display() }}
+			<table class="table table-borderless table-sm">
+				<thead>
+					<tr>
+						<th style="width: 1%"><a href="{{ path('flag_by_category', { 'slug': category.slug, 'color': 'blue' }) }}"><i class="fas fa-bookmark bluemark"></i></a></th>
+						<th style="width: 1%"><a href="{{ path('flag_by_category', { 'slug': category.slug, 'color': 'green' }) }}"><i class="fas fa-bookmark greenmark"></i></a></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+			</table>
+			<table class="table table-bordered table-hover">
+				<thead class="topbotbackground">
+					<tr>
+						<th style="width: 1%"></th>
+						<th style="width: 1%"></th>
+						<th style="width: 58%">
+							Sujets
+						</th>
+						<th style="width: 10%">
+							Dern. page
+						</th>
+						<th style="width: 10%">
+							Auteur du sujet
+						</th>
+						<th style="width: 10%">
+							Nombre de réponses
+						</th>
+						<th style="width: 10%">
+							Dernier message
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for topic in pagination.data %}
+					{% set topicPage = (topic.posts|length / pagination.limit)|round(0, 'ceil') %}
+						<tr>
+							{% if flags %}
+								{% for flag in flags|filter((flag) => flag.topicSlug == topic.slug)  %}
+									<td class="align-middle">
+									{% if flag.flagPostId == flag.lastPostId %}
+										<img src="/build/images/icones/nomsg.gif">
+									{% else %}
+										<img src="/build/images/icones/newmsg.gif">
+									{% endif %}
+									</td>
+									<td class="align-middle">
+									{% if flag.flagPostId != flag.lastPostId and flag.color == "blue" %}
+										<a href="{{ path('post', { 'id': flag.flagPostId }) }}"><i class="fas fa-bookmark bluemark"></i></a>
+									{% elseif flag.flagPostId != flag.lastPostId and flag.color == "green" %}
+										<a href="{{ path('post', { 'id': flag.flagPostId }) }}"><i class="fas fa-bookmark greenmark"></i></a>
+									{% endif %}
+									</td>
+								{% else %}
+									<td class="align-middle">
+										<img src="/build/images/icones/newmsg.gif">
+									</td>
+									<td class="align-middle">
+									</td>
+								{% endfor %}
+							{% else %}
+									<td class="align-middle">
+										<img src="/build/images/icones/newmsg.gif">
+									</td>
+									<td class="align-middle">
+									</td>
+							{% endif %}
+							<td class="align-middle">
+								<a href="{{ path('posts_list', { 'slug': category.slug, 'topic_slug': topic.slug }) }}">{{ topic.titre }}</a>
+							</td>
+							<td class="align-middle">
+								{% if topicPage > 1 %}
+								<a href="{{ path('posts_list', { 'slug': category.slug, 'topic_slug': topic.slug, 'page': topicPage }) }}">{{ topicPage }}</a>
+								{% endif %}
+							</td>
+							<td class="align-middle">
+								{{ topic.user.pseudo }}
+							</td>
+							<td class="align-middle">
+								{{ topic.posts|length - 1 }}
+							</td>
+							<td style="font-size: 12px" class="text-center">
+								{{ topic.posts|last.createdat|date("\\L\\e d/m/Y à H\\Hi")}} &nbsp
+								par {{ topic.posts|last.user.pseudo }}
+							</td>
+						</tr>
+	{% endfor %}
+				</tbody>
+		</table>{{ pagination.display() }}
+	</div>
+</div>
+{% endblock %}

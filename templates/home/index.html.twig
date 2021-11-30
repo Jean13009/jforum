@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forum
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-borderless table-sm" style="margin-top: 5%">
+				<thead>
+					<tr>
+						<th style="width: 1%"><a href="{{ path('allFlagsList', { 'color': 'blue' }) }}"><i class="fas fa-bookmark bluemark"></i></a></th>
+						<th style="width: 1%"><a href="{{ path('allFlagsList', { 'color': 'green' }) }}"><i class="fas fa-bookmark greenmark"></i></a></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+			</table>
+			<table class="table table-bordered table-hover" style="margin-top: -1%">
+				<thead class="topbotbackground">
+					<tr>
+						<th style="width: 1%"></th>
+						<th style="width: 33%">
+							Catégories
+						</th>
+						<th style="width: 33%">
+							Nombre de messages
+						</th>
+						<th style="width: 33%">
+							Dernier message
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for categorie in categories %}
+					{% set newmsg = true %}
+						<tr>
+							<td>
+								{% for flag in flags|filter((flag) => flag[1] == categorie.id) %}
+									{% if flag[2] == categorie.posts|last.id %}
+											{% set newmsg = false %}
+									{% endif %}
+								{% endfor %}
+								{% if newmsg == false %}
+									<img src="/build/images/icones/off.gif">
+									{% else %}
+									<img src="/build/images/icones/on.gif">
+								{% endif %}
+							</td>
+							<td>
+								<a href="{{ path('topics_list', { 'slug': categorie.slug }) }}">{{ categorie.titre }}</a>
+							</td>
+							<td>
+								{{ categorie.posts|length }}
+							</td>
+							<td>
+								<a href="#">{{ categorie.posts|last.createdat|date("\\L\\e d/m/Y à H\\Hi") }}
+									par
+									{{ categorie.posts|last.user.pseudo }}</a>
+							</td>
+						</tr>
+		{% endfor %}
+					</tbody>
+		</table>
+</div>
+</div>{% endblock %}

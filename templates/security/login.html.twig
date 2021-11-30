@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!
+{% endblock %}
+
+{% block body %}
+	{% if app.user %}
+		<div class="mb-3">
+			You are logged in as
+			{{ app.user.username }},
+			<a href="{{ path('app_logout') }}">Logout</a>
+		</div>
+	{% else %}
+		<form method="post">
+			<div class="wrapper fadeInDown">
+				<div
+					id="formContent">
+					<!-- Tabs Titles -->
+					{% if error %}
+						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+					{% endif %}
+					<!-- Icon -->
+
+					<!-- Login Form -->
+					<form>
+						<input type="text" class="fadeIn second" placeholder="login" value="{{ last_username }}" name="pseudo" id="inputPseudo" class="form-control" autocomplete="username" required autofocus>
+						<input class="fadeIn third" placeholder="password" type="password" name="password" id="inputPassword" autocomplete="current-password" required>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+						<input type="submit" class="fadeIn fourth" value="Log In">
+					</form>
+
+					<!-- Remind Passowrd -->
+					<div id="formFooter">
+						<a class="underlineHover" href="#">Forgot Password?</a>
+					</div>
+
+				</div>
+			</div>
+		</form>
+	{% endif %}
+{% endblock %}

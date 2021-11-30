@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="row">
+		<div class="col-md-12" style="padding-top: 1%">
+			<table class="table table-bordered table-sm" style="padding-top: 10%">
+				<thead class="topbotbackground">
+					<tr>
+						<td class="align-middle" style="width: 10%; color: blue; font-weight: bold" height="60">Auteur</td>
+						<td class="align-middle" style="width: 90%; color: blue; font-weight: bold" height="60">Liste des citations</td>
+					</tr>
+				</thead>
+				<tbody>
+                	{% set backgroundColor = false %}
+					{% for post in quotes %}
+						<tr {% if backgroundColor == false %} style="background-color: #DEDFDF" {% set backgroundColor = true %} {% else %} {% set backgroundColor = false %} {% endif %}>
+							<td style="width: 10%; font-weight: bold" height="60">
+								<a name={{ post.id }}></a>
+								{{ post.user.pseudo }}<div class="iconright">
+									<a href={{ "##{post.id}" }}><img src="/build/images/icones/icon1.gif"></a>
+								</div>
+								<img class="centerimg" src="/build/images/images/avatar.png">
+							</td>
+							<td style="width: 90%" height="60">
+								<div style="font-size: 12px">Posté le
+									{{ post.createdat|date("d/m/Y à H\\:i\\:s") }}  {% if app.user.pseudo == post.user.pseudo %} <a href="{{ path('post_edit', {'topic_slug': post.topic.slug, 'post_id': post.id}) }}"> <img src="/build/images/icones/edit.gif"></a> {% endif %}<a class="postid"  name={{ post.id }} href="#"><img src="/build/images/icones/quote.gif"></a><hr style="margin-top: 1px"/></div>
+                                <a style="text-decoration: none" href="{{ path('post', {'id': post.id}) }}">Voir ce message dans le sujet non filtré</a>
+								{{ post.content|bbCode }}
+								{% if post.quotes|length > 0 %}
+								<a href="{{ path('post_quotes', {'id': post.id}) }}"><div class="edited">Message cité {{post.quotes|length}} fois</div></a>
+								{% endif %}
+								</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+        </div>
+	</div>
+{% endblock %}

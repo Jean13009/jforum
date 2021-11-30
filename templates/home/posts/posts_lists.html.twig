@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="row">
+		<div class="col-md-12" style="padding-top: 1%">
+			<div>
+				<img src="/build/images/icones/nomsg.gif"><a style="margin-top: 5%;font-size: 12px;" href="{{ path('home') }}">
+					FORUM
+				</a>
+				<br>
+				&nbsp |- <img src="/build/images/icones/nomsg.gif"><a href="{{ path('topics_list', { 'slug': category.slug }) }}">{{ category.slug }}</a>
+				<br>
+				&nbsp |-- |- <img src="/build/images/icones/nomsg.gif"> {{ topic.slug }}
+			</div>
+			<br>
+			<a href="{{ path('new_post', {'category_slug': category.slug, 'topic_slug': topic.slug}) }}">
+				<button type="button" class="btn btn-primary btn-lg" style="margin-bottom: 1%">Répondre</button>
+			</a>
+			{{ pagination.display() }}
+			<table class="table table-bordered table-sm" style="padding-top: 10%">
+				<thead class="topbotbackground">
+					<tr>
+						<td class="align-middle" style="width: 10%; color: blue; font-weight: bold" height="60">Auteur</td>
+						<td class="align-middle" style="width: 90%; color: blue; font-weight: bold" height="60">Sujet :
+							{{topic.titre }}</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% set backgroundColor = false %}
+					{% for post in pagination.data %}
+						<tr {% if backgroundColor == false %} style="background-color: #DEDFDF" {% set backgroundColor = true %} {% else %} {% set backgroundColor = false %} {% endif %}>
+							<td style="width: 10%; font-weight: bold" height="60">
+								<a name={{ post.id }}></a>
+								{{ post.user.pseudo }}<div class="iconright">
+									<a href="{{ "##{post.id}" }}"><img src="/build/images/icones/icon1.gif"></a>
+								</div>
+								<img class="centerimg" src="/build/images/images/avatar.png">
+							</td>
+							<td style="width: 90%" height="60">
+								<div style="font-size: 12px">Posté le
+									{{ post.createdat|date("d/m/Y à H\\:i\\:s") }}  {% if app.user.pseudo == post.user.pseudo %} <a href="{{ path('post_edit', {'topic_slug': post.topic.slug, 'post_id': post.id}) }}"> <img src="/build/images/icones/edit.gif"></a> {% endif %}<a class="postid"  name={{ post.id }} href="{{ path('new_post', {'category_slug': category.slug, 'topic_slug': topic.slug}) }}"><img src="/build/images/icones/quote.gif"></a><hr style="margin-top: 1px"/></div>
+								{% if loop.first and pagination.page != 1 %}
+								<b>Reprise du message précédent:</b><br>
+								{% endif %}
+								{{ post.content|bbCode }}
+								{% if post.quotes|length > 0 %}
+								<a href="{{ path('post_quotes', {'id': post.id}) }}"><div class="edited">Message cité {{post.quotes|length}} fois</div></a>
+								{% endif %}
+								</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{{ pagination.display() }}
+		</div>
+	</div>
+{% endblock %}
+      {#<script src="/build/images/icones/quote.js"></script>#}

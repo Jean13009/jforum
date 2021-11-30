@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-center" class="paginationblock">
+	{% if topic is not empty %}
+		{% set topic = topic.slug %}
+	{% endif %}
+	<ul class=" pagination">
+		<li class="page-item {% if page == 1 %}disabled{% endif %}">
+			<a class="page-link" href="{{ path(route, {'slug': category.slug, 'topic_slug': topic, 'page': page - 1}) }}">&laquo;</a>
+		</li>
+		{% set prevpage = 0 %}
+		{% for i in 1..pages %}
+			<li class="page-item {% if page == i %}active{% endif %}">
+				{% if i < 3 or i > pages - 3 or (i >= page - 2 and i <= page +1) %}
+					{% if i - 1 != prevpage %}
+						<a class="page-link">...</a>
+						{% set prevpage =  i%}
+					{% else %}
+						{% set prevpage =  i%}
+						<a class="page-link" href="{{ path(route, {'slug': category.slug, 'topic_slug': topic, 'page': i}) }}">{{ i }}</a>
+					{% endif %}
+				{% endif %}
+			</li>
+		{% endfor %}
+	</li>
+	<li class="page-item {% if page == pages %}disabled{% endif %}">
+		<a class="page-link" href="{{ path(route, {'slug': category.slug, 'topic_slug': topic, 'page': page + 1}) }}">&raquo;</a>
+	</li>
+</ul></div>

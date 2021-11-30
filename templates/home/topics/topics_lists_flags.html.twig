@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="row">
+		<div class="col-md-12" style="padding-top: 1%">
+			<a href="{{ path('new_topic', { 'slug': category.slug }) }}">
+				<button type="button" class="btn btn-primary btn-lg">Nouveau sujet</button>
+			</a>
+			<table class="table table-borderless table-sm">
+				<thead>
+					<tr>
+						<th style="width: 1%"><a href="{{ path('flag_by_category', { 'slug': category.slug, 'color': 'blue' }) }}"><i class="fas fa-bookmark bluemark"></i></a></th>
+						<th style="width: 1%"><a href="{{ path('flag_by_category', { 'slug': category.slug, 'color': 'green' }) }}"><i class="fas fa-bookmark greenmark"></i></a></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+			</table>
+			<table class="table table-bordered table-hover">
+				<thead class="topbotbackground">
+					<tr>
+						<th style="width: 1%"></th>
+						<th style="width: 1%"></th>
+						<th style="width: 58%">
+							Sujets
+						</th>
+						<th style="width: 10%">
+							Dern. page
+						</th>
+						<th style="width: 10%">
+							Auteur du sujet
+						</th>
+						<th style="width: 10%">
+							Nombre de réponses
+						</th>
+						<th style="width: 10%">
+							Dernier message
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for flag in flags %}
+					{% set topicPage = (flag.postCount / pagination.limit)|round(0, 'ceil') %}
+						<tr>
+							<td class="align-middle">
+								{% if flag.flagPostId != flag.lastPostId %}
+									<img src="/build/images/icones/newmsg.gif">
+								{% else %}
+									<img src="/build/images/icones/nomsg.gif">
+								{% endif %}
+							</td>
+							<td class="align-middle">
+									{% if flag.flagPostId != flag.lastPostId and flag.color == "blue" %}
+										<a href="{{ path('post', { 'id': flag.flagPostId }) }}"><i class="fas fa-bookmark bluemark"></i></a>
+									{% elseif flag.flagPostId != flag.lastPostId and flag.color == "green" %}
+										<a href="{{ path('post', { 'id': flag.flagPostId }) }}"><i class="fas fa-bookmark greenmark"></i></a>
+									{% endif %}
+							</td>
+							<td class="align-middle">
+								<a href="{{ path('posts_list', { 'slug': flag.catSlug, 'topic_slug': flag.topicSlug }) }}">{{ flag.topicTitre }}</a>
+							</td>
+							<td class="align-middle">
+								{% if topicPage > 1 %}
+								<a href="{{ path('posts_list', { 'slug': flag.catSlug, 'topic_slug': flag.topicSlug, 'page': topicPage }) }}">{{ topicPage }}</a>
+								{% endif %}
+							</td>
+							<td class="align-middle">
+								{{ flag.topicUser }}
+							</td>
+							<td class="align-middle">
+								{{ flag.postCount - 1 }}
+							</td>
+							<td style="font-size: 12px" class="text-center">
+								{{ flag.lastPostCreated|date("\\L\\e d/m/Y à H\\Hi")}} &nbsp
+								par {{ flag.lastPostUserPseudo }}
+							</td>
+						</tr>
+	{% endfor %}
+				</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}
