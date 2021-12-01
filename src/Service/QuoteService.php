@@ -40,6 +40,14 @@ class QuoteService
     public function registerQuotesSql(Posts $post)
     {
         $this->post = $post;
+
+        $repo = $this->manager->getRepository(Posts::class);
+        $previousQuotes = $post->getQuote();
+        foreach ($previousQuotes as $quote){
+            if($quote)
+            $this->deleteQuoteSql($quote);
+        }
+
         preg_replace_callback('/(\[quotemsg=)([^\]]+)(\])(.*?[\S+\n\r\s]+?)\[\/quotemsg]/',
         function($matches){ return $this->postsQuotedId($matches); },
         $this->post->getContent());
@@ -55,5 +63,10 @@ class QuoteService
     private function deletePreviousQuotes($quote)
     {
         return preg_replace('/(\[quotemsg=[\S+\n\r\s]*?.*\[\/quotemsg\])/', '', $quote);
+    }
+
+    private function deleteQuoteSql($quote)
+    {
+        $this->post->removeQuote($quote);
     }
 }

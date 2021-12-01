@@ -23,7 +23,7 @@ class CreatePostEventListener
     
     public function prePersist(Posts $post, LifecycleEventArgs $event): void
     {
-        /*$post->setUser($this->security->getUser());
+        $post->setUser($this->security->getUser());
         $post->setDeleted(false);
         foreach ($_COOKIE as $name => $content)
         {
@@ -33,6 +33,5 @@ class CreatePostEventListener
                 setcookie($name, '', time() - 3600, '/');
             }
         }
-        */
     }
 }

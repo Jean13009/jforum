@@ -163,7 +163,7 @@ class HomeController extends AbstractController
     * @ParamConverter("post", options={"mapping": {"post_id": "id"}})
     * @ParamConverter("topic", options={"mapping": {"topic_slug": "slug"}})
     */
-    public function edit(Posts $post, Topics $topic, Request $request, EntityManagerInterface $manager)
+    public function edit(Posts $post, Topics $topic, Request $request, EntityManagerInterface $manager, QuoteService $quoteservice)
     {
         $form = $this->createForm(NewTopicType::class, $post);
                     
@@ -171,6 +171,7 @@ class HomeController extends AbstractController
                     
         if( $form->isSubmitted() && $form->isValid() )
         {
+            $quoteservice->registerQuotesSql($post);
             $manager->flush($post);
                         
             return $this->redirectToRoute('post', [
