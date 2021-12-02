@@ -7,6 +7,7 @@ Vos sujets - FORUM
 {% block body %}
 <div class="row">
     <div class="col-md-12">
+	{% include 'home/partials/_flags.html.twig' %}
         <table class="table table-bordered table-hover">
 		    <thead class="topbotbackground">
 			    <tr>
@@ -81,4 +82,5 @@ Vos sujets - FORUM
         </table>
     </div>
 </div>
+{% include 'home/partials/_legende.html.twig' %}
 {% endblock %}

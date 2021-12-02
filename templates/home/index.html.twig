@@ -6,16 +6,8 @@
 {% block body %}
 	<div class="row">
 		<div class="col-md-12">
-			<table class="table table-borderless table-sm" style="margin-top: 5%">
-				<thead>
-					<tr>
-						<th style="width: 1%"><a href="{{ path('allFlagsList', { 'color': 'blue' }) }}"><i class="fas fa-bookmark bluemark"></i></a></th>
-						<th style="width: 1%"><a href="{{ path('allFlagsList', { 'color': 'green' }) }}"><i class="fas fa-bookmark greenmark"></i></a></th>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-			</table>
+			{% include 'home/partials/_flags.html.twig' %}
+			<br>
 			<table class="table table-bordered table-hover" style="margin-top: -1%">
 				<thead class="topbotbackground">
 					<tr>
@@ -63,4 +55,6 @@
 					</tbody>
 		</table>
 </div>
-</div>{% endblock %}
+</div>
+{% include 'home/partials/_legende.html.twig' %}
+{% endblock %}

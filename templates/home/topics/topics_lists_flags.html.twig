@@ -10,16 +10,7 @@
 			<a href="{{ path('new_topic', { 'slug': category.slug }) }}">
 				<button type="button" class="btn btn-primary btn-lg">Nouveau sujet</button>
 			</a>
-			<table class="table table-borderless table-sm">
-				<thead>
-					<tr>
-						<th style="width: 1%"><a href="{{ path('flag_by_category', { 'slug': category.slug, 'color': 'blue' }) }}"><i class="fas fa-bookmark bluemark"></i></a></th>
-						<th style="width: 1%"><a href="{{ path('flag_by_category', { 'slug': category.slug, 'color': 'green' }) }}"><i class="fas fa-bookmark greenmark"></i></a></th>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-			</table>
+			{% include 'home/partials/_flags.html.twig' %}
 			<table class="table table-bordered table-hover">
 				<thead class="topbotbackground">
 					<tr>
@@ -84,4 +75,5 @@
 		</table>
 	</div>
 </div>
+{% include 'home/partials/_legende.html.twig' %}
 {% endblock %}

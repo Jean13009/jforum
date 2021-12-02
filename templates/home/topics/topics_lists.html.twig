@@ -14,21 +14,11 @@
 				<br>
 				&nbsp |- <img src="/build/images/icones/nomsg.gif"> {{ category.slug }}
 			</div>
-			<br>
+			{% include 'home/partials/_flags.html.twig' %}
 			<a href="{{ path('new_topic', { 'slug': category.slug }) }}">
 				<button type="button" class="btn btn-primary btn-lg">Nouveau sujet</button>
 			</a>
 			{{ pagination.display() }}
-			<table class="table table-borderless table-sm">
-				<thead>
-					<tr>
-						<th style="width: 1%"><a href="{{ path('flag_by_category', { 'slug': category.slug, 'color': 'blue' }) }}"><i class="fas fa-bookmark bluemark"></i></a></th>
-						<th style="width: 1%"><a href="{{ path('flag_by_category', { 'slug': category.slug, 'color': 'green' }) }}"><i class="fas fa-bookmark greenmark"></i></a></th>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-			</table>
 			<table class="table table-bordered table-hover">
 				<thead class="topbotbackground">
 					<tr>
@@ -104,9 +94,16 @@
 								par {{ topic.posts|last.user.pseudo }}
 							</td>
 						</tr>
-	{% endfor %}
+					{% endfor %}
 				</tbody>
-		</table>{{ pagination.display() }}
+		</table>
+		{{ pagination.display() }}
+		<a href="{{ path('new_topic', { 'slug': category.slug }) }}">
+			<button type="button" class="btn btn-primary btn-lg">Nouveau sujet</button>
+		</a>
+		<br>
+		<br>
 	</div>
 </div>
+{% include 'home/partials/_legende.html.twig' %}
 {% endblock %}
