@@ -28,7 +28,7 @@ Citations - FORUM
 							<td style="width: 90%" height="60">
 								<div style="font-size: 12px">Posté le
 									{{ post.createdat|date("d/m/Y à H\\:i\\:s") }}  {% if app.user.pseudo == post.user.pseudo %} <a href="{{ path('post_edit', {'topic_slug': post.topic.slug, 'post_id': post.id}) }}"> <img src="/build/images/icones/edit.gif"></a> {% endif %}<a class="postid"  name={{ post.id }} href="#"><img src="/build/images/icones/quote.gif"></a><hr style="margin-top: 1px"/></div>
-                                <a style="text-decoration: none" href="{{ path('post', {'id': post.id}) }}">Voir ce message dans le sujet non filtré</a>
+                                <a style="text-decoration: none" href="{{ path('post', {'id': post.id}) }}">Voir ce message dans le sujet non filtré</a><br><br>
 								{{ post.content|bbCode }}
 								{% if post.quotes|length > 0 %}
 								<a href="{{ path('post_quotes', {'id': post.id}) }}"><div class="edited">Message cité {{post.quotes|length}} fois</div></a>
