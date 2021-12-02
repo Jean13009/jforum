@@ -54,7 +54,7 @@
 								{{ categorie.posts|length }}
 							</td>
 							<td>
-								<a href="#">{{ categorie.posts|last.createdat|date("\\L\\e d/m/Y à H\\Hi") }}
+								<a href="{{ path('post', { 'id': categorie.posts|last.id }) }}">{{ categorie.posts|last.createdat|date("\\L\\e d/m/Y à H\\Hi") }}
 									par
 									{{ categorie.posts|last.user.pseudo }}</a>
 							</td>

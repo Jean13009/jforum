@@ -1,8 +1,13 @@
 {% extends 'base.html.twig' %}
+
+{% block title %}
+FORUM
+{% endblock %}
+
 {% block body %}
 	<div class="row">
 		<div class="col-md-12" style="padding-top: 1%">
-			<h3 class="text-center">{% if form.content.vars.value is not empty %}Editer{% elseif topic.titre is defined %}Répondre{% else %}Nouveau Sujet{% endif %}</h3>
+			<h3 class="text-center">{% if 'edit' in app.request.requesturi %}Editer{% elseif topic.titre is defined %}Répondre{% else %}Nouveau Sujet{% endif %}</h3>
 			{{ form_start(form) }}
 			<table class="table table-bordered response">
 				<thead>

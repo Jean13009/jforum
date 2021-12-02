@@ -2,6 +2,8 @@
 
 body {
   font-family: Verdana,Arial,Sans-serif,Helvetica;
+  font-size: 14px;
+  line-height: 1;
 }
 
 h2 {
@@ -272,6 +274,10 @@ input[type="text"]:placeholder {
 
 .topbotbackground {
   background-color: #d5e6e1;
+}
+
+.table {
+  color: rgb(0, 0, 0);
 }
 
 table.table-bordered {
