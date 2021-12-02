@@ -14,7 +14,7 @@
 				<br>
 				&nbsp |- <img src="/build/images/icones/nomsg.gif"> {{ category.slug }}
 			</div>
-			{% include 'home/partials/_flags.html.twig' %}
+			{% include 'home/partials/_flags.html.twig' with {'link' : 'flag_by_category', 'slug' : category.slug} %}
 			<a href="{{ path('new_topic', { 'slug': category.slug }) }}">
 				<button type="button" class="btn btn-primary btn-lg">Nouveau sujet</button>
 			</a>

@@ -10,7 +10,7 @@
 			<a href="{{ path('new_topic', { 'slug': category.slug }) }}">
 				<button type="button" class="btn btn-primary btn-lg">Nouveau sujet</button>
 			</a>
-			{% include 'home/partials/_flags.html.twig' %}
+			{% include 'home/partials/_flags.html.twig' with {'link' : 'flag_by_category', 'slug' : category.slug} %}
 			<table class="table table-bordered table-hover">
 				<thead class="topbotbackground">
 					<tr>

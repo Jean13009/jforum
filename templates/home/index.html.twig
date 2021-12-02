@@ -6,7 +6,7 @@
 {% block body %}
 	<div class="row">
 		<div class="col-md-12">
-			{% include 'home/partials/_flags.html.twig' %}
+			{% include 'home/partials/_flags.html.twig' with {'link' : 'allFlagsList', 'slug' : null} %}
 			<br>
 			<table class="table table-bordered table-hover" style="margin-top: -1%">
 				<thead class="topbotbackground">
