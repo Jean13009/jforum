@@ -12,7 +12,7 @@ FORUM
 			<table class="table table-bordered response">
 				<thead>
 					<tr>
-						<th style="width: 10%" class="text-center">Sujet</th>
+						<th style="width: 10%" class="text-center align-middle">Sujet</th>
 						<td class="response" style="width: 90%">{% if form.topic.titre is defined%}{{ form_widget(form.topic.titre) }}{% else %}{{ topic.titre }}{% endif %}</td>
 					</tr>
 				</thead>

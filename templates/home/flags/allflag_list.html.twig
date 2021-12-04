@@ -8,7 +8,7 @@ Vos sujets - FORUM
 <div class="row">
     <div class="col-md-12">
 	{% include 'home/partials/_flags.html.twig' with {'link' : 'allFlagsList', 'slug' : null} %}
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover" style="color: #000080">
 		    <thead class="topbotbackground">
 			    <tr>
 				    <th style="width: 1%"></th>
@@ -34,7 +34,7 @@ Vos sujets - FORUM
         {% for category in categories %}
                 {% set newMessages = false %}
 			    <tr class="topbotbackground">
-				    <td colspan="7" class="text-center"><a href="{{ path('topics_list', { 'slug': category.slug }) }}">{{ category.titre }}</a></td>
+				    <td colspan="7" class="text-center"><a class="linkwithoutline" href="{{ path('topics_list', { 'slug': category.slug }) }}">{{ category.titre }}</a></td>
 				</tr>
                 {% for flag in flags|filter((flag) => flag.flagCategoryId == category.id)  %}
                     {% if flag.flagPostId != flag.lastPostId %}
@@ -52,11 +52,11 @@ Vos sujets - FORUM
 								{% endif %}
 							</td>
 							<td class="align-middle">
-								<a href="{{ path('posts_list', { 'slug': flag.catSlug, 'topic_slug': flag.topicSlug }) }}">{{ flag.topicTitre }}</a>
+								<a class="linkwithoutline" href="{{ path('posts_list', { 'slug': flag.catSlug, 'topic_slug': flag.topicSlug }) }}">{{ flag.topicTitre }}</a>
 							</td>
 							<td class="align-middle">
                             	{% if topicPage > 1 %}
-								    <a href="{{ path('posts_list', { 'slug': flag.catSlug, 'topic_slug': flag.topicSlug, 'page': topicPage }) }}">{{ topicPage }}</a>
+								    <a class="linkwithoutline" href="{{ path('posts_list', { 'slug': flag.catSlug, 'topic_slug': flag.topicSlug, 'page': topicPage }) }}">{{ topicPage }}</a>
 								{% endif %}
 							</td>
 							<td class="align-middle">

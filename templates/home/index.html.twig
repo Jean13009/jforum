@@ -8,7 +8,7 @@
 		<div class="col-md-12">
 			{% include 'home/partials/_flags.html.twig' with {'link' : 'allFlagsList', 'slug' : null} %}
 			<br>
-			<table class="table table-bordered table-hover" style="margin-top: -1%">
+			<table class="table table-bordered table-hover" style="margin-top: -1%;color: #000080">
 				<thead class="topbotbackground">
 					<tr>
 						<th style="width: 1%"></th>
@@ -39,14 +39,14 @@
 									<img src="/build/images/icones/on.gif">
 								{% endif %}
 							</td>
-							<td>
-								<a href="{{ path('topics_list', { 'slug': categorie.slug }) }}">{{ categorie.titre }}</a>
+							<td class="align-middle">
+								<a class="linkwithoutline" href="{{ path('topics_list', { 'slug': categorie.slug }) }}">{{ categorie.titre }}</a>
 							</td>
-							<td>
+							<td class="align-middle">
 								{{ categorie.posts|length }}
 							</td>
-							<td>
-								<a href="{{ path('post', { 'id': categorie.posts|last.id }) }}">{{ categorie.posts|last.createdat|date("\\L\\e d/m/Y à H\\Hi") }}
+							<td class="align-middle">
+								<a class="linkwithoutline" href="{{ path('post', { 'id': categorie.posts|last.id }) }}">{{ categorie.posts|last.createdat|date("\\L\\e d/m/Y à H\\Hi") }}
 									par
 									{{ categorie.posts|last.user.pseudo }}</a>
 							</td>

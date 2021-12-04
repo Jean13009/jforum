@@ -12,14 +12,14 @@
 					FORUM
 				</a>
 				<br>
-				&nbsp |- <img src="/build/images/icones/nomsg.gif"> {{ category.slug }}
+				&nbsp |- <img src="/build/images/icones/nomsg.gif"> {{ category.titre }}
 			</div>
 			{% include 'home/partials/_flags.html.twig' with {'link' : 'flag_by_category', 'slug' : category.slug} %}
 			<a href="{{ path('new_topic', { 'slug': category.slug }) }}">
 				<button type="button" class="btn btn-primary btn-lg">Nouveau sujet</button>
 			</a>
 			{{ pagination.display() }}
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered table-hover" class="align-middle" style="color: #000080">
 				<thead class="topbotbackground">
 					<tr>
 						<th style="width: 1%"></th>
@@ -76,11 +76,11 @@
 									</td>
 							{% endif %}
 							<td class="align-middle">
-								<a href="{{ path('posts_list', { 'slug': category.slug, 'topic_slug': topic.slug }) }}">{{ topic.titre }}</a>
+								<a class="linkwithoutline" href="{{ path('posts_list', { 'slug': category.slug, 'topic_slug': topic.slug }) }}">{{ topic.titre }}</a>
 							</td>
 							<td class="align-middle">
 								{% if topicPage > 1 %}
-								<a href="{{ path('posts_list', { 'slug': category.slug, 'topic_slug': topic.slug, 'page': topicPage }) }}">{{ topicPage }}</a>
+								<a class="linkwithoutline" href="{{ path('posts_list', { 'slug': category.slug, 'topic_slug': topic.slug, 'page': topicPage }) }}">{{ topicPage }}</a>
 								{% endif %}
 							</td>
 							<td class="align-middle">
@@ -90,8 +90,8 @@
 								{{ topic.posts|length - 1 }}
 							</td>
 							<td style="font-size: 12px" class="text-center">
-								{{ topic.posts|last.createdat|date("\\L\\e d/m/Y à H\\Hi")}} &nbsp
-								par {{ topic.posts|last.user.pseudo }}
+								<a class="linkwithoutline" href="{{ path('post', { 'id': category.posts|last.id }) }}">{{ topic.posts|last.createdat|date("\\L\\e d/m/Y à H\\Hi")}} &nbsp
+								par {{ topic.posts|last.user.pseudo }}</a>
 							</td>
 						</tr>
 					{% endfor %}

@@ -11,8 +11,8 @@
 				<button type="button" class="btn btn-primary btn-lg">Nouveau sujet</button>
 			</a>
 			{% include 'home/partials/_flags.html.twig' with {'link' : 'flag_by_category', 'slug' : category.slug} %}
-			<table class="table table-bordered table-hover">
-				<thead class="topbotbackground">
+			<table class="table table-bordered table-hover" style="color: #000080">
+				<thead class="topbotbackground" class="align-middle">
 					<tr>
 						<th style="width: 1%"></th>
 						<th style="width: 1%"></th>
@@ -52,11 +52,11 @@
 									{% endif %}
 							</td>
 							<td class="align-middle">
-								<a href="{{ path('posts_list', { 'slug': flag.catSlug, 'topic_slug': flag.topicSlug }) }}">{{ flag.topicTitre }}</a>
+								<a class="linkwithoutline" href="{{ path('posts_list', { 'slug': flag.catSlug, 'topic_slug': flag.topicSlug }) }}">{{ flag.topicTitre }}</a>
 							</td>
 							<td class="align-middle">
 								{% if topicPage > 1 %}
-								<a href="{{ path('posts_list', { 'slug': flag.catSlug, 'topic_slug': flag.topicSlug, 'page': topicPage }) }}">{{ topicPage }}</a>
+								<a class="linkwithoutline" href="{{ path('posts_list', { 'slug': flag.catSlug, 'topic_slug': flag.topicSlug, 'page': topicPage }) }}">{{ topicPage }}</a>
 								{% endif %}
 							</td>
 							<td class="align-middle">

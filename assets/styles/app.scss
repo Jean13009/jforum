@@ -2,7 +2,7 @@
 
 body {
   font-family: Verdana,Arial,Sans-serif,Helvetica;
-  font-size: 14px;
+  font-size: small;
   line-height: 1;
 }
 
@@ -346,4 +346,14 @@ hr {
 
 .legende {
   font-size: 12px;
+}
+
+.linkwithoutline {
+  text-decoration: none;
+  color: #000080;
+  font-weight: bold;
+}
+
+.linkwithoutline:hover {
+  text-decoration: underline;
 }
