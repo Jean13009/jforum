@@ -100,10 +100,10 @@ class HomeController extends AbstractController
     public function newtopic(Categories $category, Request $request, EntityManagerInterface $manager, FlagService $flag, QuoteService $quoteservice): Response
     {
         $post = new Posts();
+        $quoteservice->manageQuotes($post);
         
         $form = $this->createForm(NewTopicType::class, $post);
         $form->handleRequest($request);
-        $quoteservice->manageQuotes($post);
         
         if($form->isSubmitted() && $form->isValid()) 
         {
@@ -173,6 +173,7 @@ class HomeController extends AbstractController
         {
             $quoteservice->registerQuotesSql($post);
             $manager->flush($post);
+            $manager->flush($topic);
                         
             return $this->redirectToRoute('post', [
             'id' => $post->getId()

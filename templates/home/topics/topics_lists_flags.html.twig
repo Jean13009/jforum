@@ -19,16 +19,16 @@
 						<th style="width: 58%">
 							Sujets
 						</th>
-						<th style="width: 10%">
+						<th style="width: 5%" class="text-center">
 							Dern. page
 						</th>
-						<th style="width: 10%">
+						<th style="width: 15%" class="text-center">
 							Auteur du sujet
 						</th>
-						<th style="width: 10%">
+						<th style="width: 10%" class="text-center">
 							Nombre de réponses
 						</th>
-						<th style="width: 10%">
+						<th style="width: 10%" class="text-center">
 							Dernier message
 						</th>
 					</tr>
@@ -54,20 +54,20 @@
 							<td class="align-middle">
 								<a class="linkwithoutline" href="{{ path('posts_list', { 'slug': flag.catSlug, 'topic_slug': flag.topicSlug }) }}">{{ flag.topicTitre }}</a>
 							</td>
-							<td class="align-middle">
+							<td class="align-middle text-center">
 								{% if topicPage > 1 %}
 								<a class="linkwithoutline" href="{{ path('posts_list', { 'slug': flag.catSlug, 'topic_slug': flag.topicSlug, 'page': topicPage }) }}">{{ topicPage }}</a>
 								{% endif %}
 							</td>
-							<td class="align-middle">
+							<td class="align-middle text-center" style="background-color: #DEDFDF">
 								{{ flag.topicUser }}
 							</td>
-							<td class="align-middle">
+							<td class="align-middle text-center">
 								{{ flag.postCount - 1 }}
 							</td>
 							<td style="font-size: 12px" class="text-center">
 								{{ flag.lastPostCreated|date("\\L\\e d/m/Y à H\\Hi")}} &nbsp
-								par {{ flag.lastPostUserPseudo }}
+								<b>{{ flag.lastPostUserPseudo }}</b>
 							</td>
 						</tr>
 	{% endfor %}

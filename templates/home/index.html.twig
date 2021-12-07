@@ -11,15 +11,18 @@
 			<table class="table table-bordered table-hover" style="margin-top: -1%;color: #000080">
 				<thead class="topbotbackground">
 					<tr>
-						<th style="width: 1%"></th>
-						<th style="width: 33%">
+						<th class="col"></th>
+						<th class="col-6">
 							Catégories
 						</th>
-						<th style="width: 33%">
+						<th class="col-1 text-center">
 							Nombre de messages
 						</th>
-						<th style="width: 33%">
-							Dernier message
+						<th class="col-3 text-center">
+							Date du dernier message
+						</th>
+						<th class="col-3 text-center">
+							Modérateur
 						</th>
 					</tr>
 				</thead>
@@ -40,15 +43,18 @@
 								{% endif %}
 							</td>
 							<td class="align-middle">
-								<a class="linkwithoutline" href="{{ path('topics_list', { 'slug': categorie.slug }) }}">{{ categorie.titre }}</a>
+								<a class="linkwithoutline fw-bold" href="{{ path('topics_list', { 'slug': categorie.slug }) }}">{{ categorie.titre }}</a>
 							</td>
-							<td class="align-middle">
+							<td class="align-middle text-center" style="background-color: #DEDFDF">
 								{{ categorie.posts|length }}
 							</td>
-							<td class="align-middle">
+							<td class="align-middle text-center">
 								<a class="linkwithoutline" href="{{ path('post', { 'id': categorie.posts|last.id }) }}">{{ categorie.posts|last.createdat|date("\\L\\e d/m/Y à H\\Hi") }}
-									par
-									{{ categorie.posts|last.user.pseudo }}</a>
+									<br>
+									<b>par {{ categorie.posts|last.user.pseudo }}</a></b>
+							</td>
+							<td class="align-middle text-center">
+								admin
 							</td>
 						</tr>
 		{% endfor %}

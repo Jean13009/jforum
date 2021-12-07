@@ -49,7 +49,7 @@
 								{% endif %}
 								{{ post.content|bbCode }}
 								{% if post.quotes|length > 0 %}
-								<div class="edited"><br><a href="{{ path('post_quotes', {'id': post.id}) }}">Message cité {{post.quotes|length}} fois</a></div>
+								<div class="edited"><br><a class="edited" href="{{ path('post_quotes', {'id': post.id}) }}">Message cité {{post.quotes|length}} fois</a></div>
 								{% endif %}
 								</td>
 						</tr>
