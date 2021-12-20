@@ -1,14 +1,15 @@
 <?php
-// src/EventListener/CreatePostEventListener.php
+// src/EventListener/TopicEventListener.php
 namespace App\EventListener;
 
-use App\Entity\Posts;
+use App\Entity\Topics;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Symfony\Component\Security\Core\Security;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class CreatePostEventListener
+class TopicEventListener
 {
     private $security;
     private $manager;
@@ -21,15 +22,20 @@ class CreatePostEventListener
         $this->requeststack = $requeststack;
     }
     
-    public function prePersist(Posts $post, LifecycleEventArgs $event): void
+    public function prePersist(Topics $topic, LifecycleEventArgs $event): void
     {
-        $post->setUser($this->security->getUser());
-        foreach ($_COOKIE as $name => $content)
+        $topic->setUser($this->security->getUser());
+    }
+
+    public function preFlush(Topics $topic, PreFlushEventArgs $event): void
+    {
+        if($topic->getDeleted() == true)
         {
-            if (strpos($name, 'quotes') === 0)
+            $postsInTopic = $topic->getPosts();
+            foreach ($postsInTopic as $postInTopic)
             {
-                unset($_COOKIE[$name]);
-                setcookie($name, '', time() - 3600, '/');
+                $postInTopic->setDeleted(true);
+                $this->manager->flush($postInTopic);
             }
         }
     }

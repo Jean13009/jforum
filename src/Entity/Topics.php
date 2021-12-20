@@ -53,6 +53,11 @@ class Topics
      */
     private $User;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $deleted;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -172,6 +177,18 @@ class Topics
     public function setUser(?User $User): self
     {
         $this->User = $User;
+
+        return $this;
+    }
+
+    public function getDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(?bool $deleted): self
+    {
+        $this->deleted = $deleted;
 
         return $this;
     }

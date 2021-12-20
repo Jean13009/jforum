@@ -110,14 +110,17 @@ class HomeController extends AbstractController
             $quoteservice->registerQuotesSql($post);
             $topic = $post->getTopic();
             $topic->setCategory($category);
-            $topic->setUser($this->getUser());
             $post->setCategory($category);
             $manager->persist($post);
             $manager->persist($topic);
             $manager->flush();
             $flag->newPostFlag($topic, $post);
             
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('posts_list', [
+                'slug' => $category->getSlug(),
+                'topic_slug' => $topic->getSlug(),
+                'page' => 1
+            ]);
         }
         
         return $this->render('home/posts/new_post.html.twig', [
@@ -172,8 +175,33 @@ class HomeController extends AbstractController
         if( $form->isSubmitted() && $form->isValid() )
         {
             $quoteservice->registerQuotesSql($post);
+    
             $manager->flush($post);
             $manager->flush($topic);
+
+            if($topic->getDeleted() == true)
+            {
+                $this->addFlash(
+                    'success',
+                    "Le sujet a été supprimé"
+                );
+                return $this->redirectToRoute('topics_list', [
+                    'slug' => $topic->getCategory()->getSlug(),
+                    'page' => 1
+                ]);
+            }
+            else if($post->getDeleted() == true)
+            {
+                $this->addFlash(
+                    'success',
+                    "La réponse a été supprimée"
+                );
+                return $this->redirectToRoute('posts_list', [
+                    'slug' => $topic->getCategory()->getSlug(),
+                    'topic_slug' => $topic->getSlug(),
+                    'page' => 1
+                ]);
+            }
                         
             return $this->redirectToRoute('post', [
             'id' => $post->getId()
@@ -192,10 +220,13 @@ class HomeController extends AbstractController
     * @ParamConverter("category", options={"mapping": {"slug": "slug"}})
     * @ParamConverter("topic", options={"mapping": {"topic_slug": "slug"}})
     */
-    public function posts($page = 1, Request $request, Categories $category, Topics $topic, PaginationService $pagination, FlagService $flag): Response
+    public function posts($page = 1, Request $request, Categories $category, Topics $topic = null, PaginationService $pagination, FlagService $flag): Response
     {
-        
-        
+        if(!$topic || $topic->getDeleted() == true)
+        {
+            return $this->redirectToRoute('home');
+        }
+
         $pagination->setEntityClass(Posts::class);
         
         if($pagination->getPages() < $page)
@@ -226,7 +257,7 @@ class HomeController extends AbstractController
     */
     public function post(Posts $post = null, PaginationService $pagination, Request $request): Response
     {
-        if(!$post)
+        if(!$post || $post->getDeleted() == true)
         {
             return $this->redirectToRoute('home');
         }

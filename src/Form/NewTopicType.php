@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use App\Form\EventListener\AddTopicFieldSubscriber;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class NewTopicType extends AbstractType
@@ -28,6 +29,9 @@ class NewTopicType extends AbstractType
                 'attr' => ['class' => 'textpost'],
             ]
             )
+            ->add('deleted', CheckboxType::class, [
+                'required' => false,
+            ])
             ->addEventSubscriber(new AddTopicFieldSubscriber($this->manager))
             ->add('Valider', SubmitType::class);
         ;

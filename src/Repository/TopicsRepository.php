@@ -23,10 +23,12 @@ class TopicsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('t')
         ->Where('t.category = :val')
+        ->andWhere('pt.deleted = :val2')
         ->Join('t.posts', 'pt')
         ->groupBy('t.id')
         ->orderBy('MAX(pt.id)', 'DESC')
         ->setParameter('val', $category)
+        ->setParameter('val2', false)
         ->setFirstResult($offset)
         ->setMaxResults($limit)
         ->getQuery()

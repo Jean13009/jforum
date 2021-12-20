@@ -67,7 +67,8 @@ class AppFixtures extends Fixture
                     
                     $topics->setTitre($faker->word())
                     ->setUser($user)
-                    ->setCategory($categories);
+                    ->setCategory($categories)
+                    ->setDeleted(false);
                     
                     
                     $manager->persist($topics);

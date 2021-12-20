@@ -59,11 +59,11 @@ class PaginationService {
         
         if($this->entityClass === Posts::class)
         {
-        $total = count($repo->findBy(['topic' => $this->topic]));
+        $total = count($repo->findBy(['topic' => $this->topic, 'deleted' => false]));
         }
         else if ($this->entityClass === Topics::class)
         {
-        $total = count($repo->findBy(['category' => $this->category]));
+        $total = count($repo->findBy(['category' => $this->category, 'deleted' => false]));
         }
 
         $this->pages = ceil($total / $this->limit);
@@ -98,7 +98,7 @@ class PaginationService {
 
         if($this->entityClass === Posts::class)
         {
-        $this->data = $repo->findBy(['topic' => $this->topic], ['id' => 'ASC'], $decalLimit, $offset);
+        $this->data = $repo->findBy(['topic' => $this->topic, 'deleted' => false], ['id' => 'ASC'], $decalLimit, $offset);
         }
         else if($this->entityClass === Topics::class)
         {

@@ -29,6 +29,15 @@ services:
         event: "prePersist"
         entity: 'App\Entity\Posts'
 
+  App\EventListener\TopicEventListener:
+    tags:
+      - name: "doctrine.orm.entity_listener"
+        event: "prePersist"
+        entity: 'App\Entity\Topics'
+      - name: "doctrine.orm.entity_listener"
+        event: "preFlush"
+        entity: 'App\Entity\Topics'
+
   App\Service\PaginationService:
     arguments:
       $templatePath: "home/partials/pagination.html.twig"

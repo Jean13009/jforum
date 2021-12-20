@@ -70,9 +70,29 @@ FORUM
 							{{ form_widget(form.content) }}
 						</td>
 					</tr>
+					{% if form.topic.titre is defined%}
+						{% set labelCheckBox = 'Supprimer le sujet' %}
+					{% else %}
+						{% set labelCheckBox = 'Supprimer le message' %}
+					{% endif %}
+					{% if 'edit' in app.request.requesturi %}
+					<tr>
+						<td>
+						</td>
+						<td class="align-middle">
+							{% if form.topic.titre is defined%}
+								{{ form_widget(form.topic.deleted, {'label': labelCheckBox}) }}
+							{% else %}
+								{{ form_widget(form.deleted, {'label': labelCheckBox}) }}
+							{% endif %}
+						</td>
+					</tr>
+					{% endif %}
 				</tbody>
 			</table>
+			{{ form_widget(form.Valider) }}
 		</div>
-		{{ form_end(form) }}
+		{{ form_row(form._token) }}
+		{{ form_end(form, {'render_rest': false}) }}
 	</div>
 {% endblock %}

@@ -41,9 +41,10 @@
 								<br>
 								<img class="centerimg" src="/build/images/images/avatar.png">
 							</td>
-							<td style="width: 90%" height="60">
-								<div style="font-size: 12px">Posté le
-									{{ post.createdat|date("d/m/Y à H\\:i\\:s") }}  {% if app.user.pseudo == post.user.pseudo %} <a href="{{ path('post_edit', {'topic_slug': post.topic.slug, 'post_id': post.id}) }}"> <img src="/build/images/icones/edit.gif"></a> {% endif %}<a class="postid"  name={{ post.id }} href="{{ path('new_post', {'category_slug': category.slug, 'topic_slug': topic.slug}) }}"><img src="/build/images/icones/quote.gif"></a><hr style="margin-top: 1px"/></div>
+							<td style="width: 90%;font-size: small;" height="60">
+								<div style="font-size: 12px;margin-top: 3px;">Posté le
+									{{ post.createdat|date("d/m/Y à H\\:i\\:s") }}  {% if app.user.pseudo is defined and app.user.pseudo == post.user.pseudo %} <a href="{{ path('post_edit', {'topic_slug': post.topic.slug, 'post_id': post.id}) }}"> <img class="buttonpost" src="/build/images/icones/edit.gif"></a> {% endif %}<a class="postid"  name={{ post.id }} href="{{ path('new_post', {'category_slug': category.slug, 'topic_slug': topic.slug}) }}"><img class="buttonpost" src="/build/images/icones/quote.gif"></a><hr style="margin-top: 3px"/>
+								</div>
 								{% if loop.first and pagination.page != 1 %}
 								<b>Reprise du message précédent:</b><br>
 								{% endif %}
@@ -51,7 +52,7 @@
 								{% if post.quotes|length > 0 %}
 								<div class="edited"><br><a class="edited" href="{{ path('post_quotes', {'id': post.id}) }}">Message cité {{post.quotes|length}} fois</a></div>
 								{% endif %}
-								</td>
+							</td>
 						</tr>
 					{% endfor %}
 				</tbody>

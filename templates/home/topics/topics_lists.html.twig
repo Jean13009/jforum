@@ -90,7 +90,7 @@
 								{{ topic.posts|length - 1 }}
 							</td>
 							<td class="text-center last-msg">
-								<a class="linkwithoutline" href="{{ path('post', { 'id': category.posts|last.id }) }}">{{ topic.posts|last.createdat|date("\\L\\e d/m/Y à H\\Hi")}} &nbsp
+								<a class="linkwithoutline" href="{{ path('post', { 'id': topic.posts|last.id }) }}">{{ topic.posts|last.createdat|date("\\L\\e d/m/Y à H\\Hi")}} &nbsp
 								<b>{{ topic.posts|last.user.pseudo }}</a></b>
 							</td>
 						</tr>
