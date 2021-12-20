@@ -4,6 +4,7 @@ namespace App\EventListener;
 
 use App\Entity\Posts;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Symfony\Component\Security\Core\Security;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -30,6 +31,20 @@ class CreatePostEventListener
             {
                 unset($_COOKIE[$name]);
                 setcookie($name, '', time() - 3600, '/');
+            }
+        }
+    }
+
+    public function preFlush(Posts $post, PreFlushEventArgs $event): void
+    {
+        if($post->getDeleted() == true)
+        {
+            $quotes = $post->getQuote();
+
+            foreach ($quotes as $quote)
+            {
+                if($quote)
+                $post->removeQuote($quote);
             }
         }
     }

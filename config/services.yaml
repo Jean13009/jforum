@@ -28,6 +28,9 @@ services:
       - name: "doctrine.orm.entity_listener"
         event: "prePersist"
         entity: 'App\Entity\Posts'
+      - name: "doctrine.orm.entity_listener"
+        event: "preFlush"
+        entity: 'App\Entity\Posts'
 
   App\EventListener\TopicEventListener:
     tags:

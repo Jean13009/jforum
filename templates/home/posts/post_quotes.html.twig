@@ -25,9 +25,9 @@ Citations - FORUM
 								</div>
 								<img class="centerimg" src="/build/images/images/avatar.png">
 							</td>
-							<td style="width: 90%" height="60">
-								<div style="font-size: 12px">Posté le
-									{{ post.createdat|date("d/m/Y à H\\:i\\:s") }}  {% if app.user.pseudo == post.user.pseudo %} <a href="{{ path('post_edit', {'topic_slug': post.topic.slug, 'post_id': post.id}) }}"> <img class="buttonpost" src="/build/images/icones/edit.gif"></a> {% endif %}<a class="postid"  name={{ post.id }} href="#"><img class="buttonpost" src="/build/images/icones/quote.gif"></a><hr style="margin-top: 1px"/></div>
+							<td style="width: 90%;font-size: small;" height="60">
+								<div style="font-size: 12px;margin-top: 3px;">Posté le
+									{{ post.createdat|date("d/m/Y à H\\:i\\:s") }}  {% if app.user.pseudo == post.user.pseudo %} <a href="{{ path('post_edit', {'topic_slug': post.topic.slug, 'post_id': post.id}) }}"> <img class="buttonpost" src="/build/images/icones/edit.gif"></a> {% endif %}<a class="postid"  name={{ post.id }} href="{{ path('new_post', {'category_slug': post.category.slug, 'topic_slug': post.topic.slug}) }}"><img class="buttonpost" src="/build/images/icones/quote.gif"></a><hr style="margin-top: 3px"/></div>
                                 <a style="text-decoration: none;color: #000080;" href="{{ path('post', {'id': post.id}) }}"><b>Voir ce message dans le sujet non filtré</b></a><br><br>
 								{{ post.content|bbCode }}
 								{% if post.quotes|length > 0 %}

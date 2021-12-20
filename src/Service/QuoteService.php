@@ -30,10 +30,13 @@ class QuoteService
         {
             $repo = $this->manager->getRepository(Posts::class);
             $quote = $repo->findOneBy(['id' => $PostId]);
+            if($quote)
+            {
             $quote = $this->deletePreviousQuotes($quote->getContent());
             $quote = "[quotemsg=".$PostId."]".$quote."[/quotemsg]
 ";
             $post->setContent($post->getContent().$quote);
+            }
         }
     }
 
