@@ -6,8 +6,8 @@
 {% block body %}
 	{% if app.user %}
 		<div class="mb-3">
-			You are logged in as
-			{{ app.user.username }},
+			Vous êtes déjà connecté avec le nom d'utilisateur
+			{{ app.user.pseudo }},
 			<a href="{{ path('app_logout') }}">Logout</a>
 		</div>
 	{% else %}
@@ -31,7 +31,7 @@
 
 					<!-- Remind Passowrd -->
 					<div id="formFooter">
-						<a class="underlineHover" href="#">Mot de passe oublié?</a>
+						<a href="#">Mot de passe oublié?</a>
 						<a href="{{ path('register') }}">S'enregistrer</a>
 					</div>
 

@@ -29,16 +29,7 @@ class AppFixtures extends Fixture
         // $manager->persist($product);
         $faker = Factory::create('fr_FR');
 
-        $user = new User();
-        $hash = $this->encoder->encodePassword($user, "pass");
-        
-        $user->setPseudo('admin')
-        ->setEmail('jo@jo.com')
-        ->setPassword($hash)
-        ->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
-        
-        
-        $manager->persist($user);
+
         
         
         for ($i = 0; $i < 5; $i++) {

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211218172831 extends AbstractMigration
+final class Version20211222155633 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -25,6 +25,7 @@ final class Version20211218172831 extends AbstractMigration
         $this->addSql('CREATE TABLE posts (id INT AUTO_INCREMENT NOT NULL, topic_id INT NOT NULL, user_id INT NOT NULL, category_id INT NOT NULL, content LONGTEXT NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', deleted TINYINT(1) DEFAULT NULL, INDEX IDX_885DBAFA1F55203D (topic_id), INDEX IDX_885DBAFAA76ED395 (user_id), INDEX IDX_885DBAFA12469DE2 (category_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE posts_posts (posts_source INT NOT NULL, posts_target INT NOT NULL, INDEX IDX_3A5AE1EB358858DA (posts_source), INDEX IDX_3A5AE1EB2C6D0855 (posts_target), PRIMARY KEY(posts_source, posts_target)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE topics (id INT AUTO_INCREMENT NOT NULL, category_id INT NOT NULL, user_id INT NOT NULL, titre VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, deleted TINYINT(1) DEFAULT NULL, INDEX IDX_91F6463912469DE2 (category_id), INDEX IDX_91F64639A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE traffic (id INT AUTO_INCREMENT NOT NULL, ip VARCHAR(255) NOT NULL, page VARCHAR(255) NOT NULL, date DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `user` (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(255) NOT NULL, pseudo VARCHAR(25) NOT NULL, created_at DATETIME NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE flags ADD CONSTRAINT FK_B0541BA4B89032C FOREIGN KEY (post_id) REFERENCES posts (id)');
         $this->addSql('ALTER TABLE flags ADD CONSTRAINT FK_B0541BA12469DE2 FOREIGN KEY (category_id) REFERENCES categories (id)');
@@ -58,6 +59,7 @@ final class Version20211218172831 extends AbstractMigration
         $this->addSql('DROP TABLE posts');
         $this->addSql('DROP TABLE posts_posts');
         $this->addSql('DROP TABLE topics');
+        $this->addSql('DROP TABLE traffic');
         $this->addSql('DROP TABLE `user`');
     }
 }
